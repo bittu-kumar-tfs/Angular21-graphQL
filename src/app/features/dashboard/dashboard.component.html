@@ -44,7 +44,7 @@
     <div class="mt-4">
       <h5>httpResource example</h5>
       <pre>
-        @if (todo.status() === 'loading') {
+        @if (todo.isLoading()) {
           loading...
         } @else if (todo.hasValue()) {
           {{ todo.value() | json }}
@@ -60,6 +60,10 @@
         } @else if (todo1.hasValue()) {
           {{ todo1.value() | json }}
         }
+
       </pre>
+
+      <button (click)="createNewTodo('New Todo')">Create Todo</button>
+
   </div>
 </div>
