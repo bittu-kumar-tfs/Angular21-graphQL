@@ -40,5 +40,26 @@
      userId1: {{userId1()}}  <br>
      selectedUserId1: {{selectedUserId1()}}
     </div>
+
+    <div class="mt-4">
+      <h5>httpResource example</h5>
+      <pre>
+        @if (todo.status() === 'loading') {
+          loading...
+        } @else if (todo.hasValue()) {
+          {{ todo.value() | json }}
+        }
+      </pre>
+    </div>
+
+    <div class="mt-4">
+      <h5>resource example</h5>
+      <pre>
+        @if (todo1.isLoading()) {
+          loading...
+        } @else if (todo1.hasValue()) {
+          {{ todo1.value() | json }}
+        }
+      </pre>
   </div>
 </div>

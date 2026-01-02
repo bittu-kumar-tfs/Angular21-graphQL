@@ -1,9 +1,10 @@
-import { Component, inject, signal, OnInit, linkedSignal, computed } from '@angular/core';
+import { Component, inject, signal, OnInit, linkedSignal, computed, resource } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { NavigationComponent } from '../../shared/components/navigation/navigation.component';
 import { AuthResponse } from '../../core/models/user.model';
+import { httpResource } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,11 +20,11 @@ export class DashboardComponent implements OnInit {
   readonly isLoading = signal(false);
   readonly error = signal<string | null>(null);
 
-  userId= signal(1);
-  selectedUserId= linkedSignal(() => this.userId());
+  userId = signal(1);
+  selectedUserId = linkedSignal(() => this.userId());
 
-  userId1= signal(10);
-  selectedUserId1= computed(() => this.userId1());
+  userId1 = signal(10);
+  selectedUserId1 = computed(() => this.userId1());
 
   ngOnInit(): void {
     this.loadDashboard();
@@ -33,6 +34,17 @@ export class DashboardComponent implements OnInit {
     // this.selectedUserId1.set(35);
     this.userId1.set(30);
   }
+
+  todo = httpResource(() => ({
+    url: 'https://jsonplaceholder.typicode.com/todos/1',
+  }));
+
+  todo1= resource({
+    loader: function(){
+      return fetch('https://jsonplaceholder.typicode.com/todos/1')
+        .then(response => response.json());
+    }
+  })
 
   loadDashboard(): void {
     this.isLoading.set(true);
